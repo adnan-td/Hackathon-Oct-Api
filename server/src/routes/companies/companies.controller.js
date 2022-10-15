@@ -1,7 +1,10 @@
 const { getAllCompanies, addNewCompany, getOneCompany } = require("../../models/companies.model");
 
 async function httpGetAllCompanies(req, res) {
-  const result = await getAllCompanies();
+  const query = req.query.query;
+  const page = +req.query.page;
+  const limit = +req.query.limit;
+  const result = await getAllCompanies(query, page, limit);
   res.send(result);
 }
 

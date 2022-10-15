@@ -1,16 +1,19 @@
 const companiesdb = require("./companies.mongo");
 const advocatesdb = require("./advocates.mongo");
-// const { paginatedResultsFindAll, paginatedResultsFindOne } = require("../services/pagination");
+const { paginatedResultsFindAll } = require("../services/pagination");
 
-async function getAllAdvocates() {
-  const advocates = JSON.parse(JSON.stringify(await advocatesdb.find({})));
-  const companies = JSON.parse(JSON.stringify(await companiesdb.find({})));
-  return advocates.map((advocate) => {
+async function getAllAdvocates(query, page, limit) {
+  const result = await paginatedResultsFindAll(advocatesdb, page, limit, query);
+  const advocates = result.results;
+  const companies = JSON.parse(JSON.stringify(await companiesdb.find({}, "id name logo")));
+  const newadvocates = advocates.map((advocate) => {
     const company = companies.find((company) => {
       return company.id === advocate.company;
     });
     return { ...advocate, company: company };
   });
+  result.results = newadvocates;
+  return result;
 }
 
 async function getOneAdvocate(id) {

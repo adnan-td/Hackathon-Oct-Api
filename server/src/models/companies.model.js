@@ -1,24 +1,31 @@
 const companiesdb = require("./companies.mongo");
 const advocatesdb = require("./advocates.mongo");
+const { paginatedResultsFindAll } = require("../services/pagination");
 
-async function getAllCompanies() {
-  const companies = JSON.parse(JSON.stringify(await companiesdb.find({})));
-  let advocates = JSON.parse(JSON.stringify(await advocatesdb.find({})));
-  advocates = advocates.map((advocate) => {
-    return {
-      id: advocate.id,
-      name: advocate.name,
-      profile_pic: advocate.profile_pic,
-      url: advocate.url,
-      company: advocate.company,
-    };
-  });
-  return companies.map((company) => {
+async function getAllCompanies(query, page, limit) {
+  const result = await paginatedResultsFindAll(companiesdb, page, limit, query);
+  const companies = result.results;
+  const advocates = JSON.parse(
+    JSON.stringify(await advocatesdb.find({}, "id name profile_pic url company"))
+  );
+  // let advocates = JSON.parse(JSON.stringify(await advocatesdb.find({})));
+  // advocates = advocates.map((advocate) => {
+  //   return {
+  //     id: advocate.id,
+  //     name: advocate.name,
+  //     profile_pic: advocate.profile_pic,
+  //     url: advocate.url,
+  //     company: advocate.company,
+  //   };
+  // });
+  const newcompanies = companies.map((company) => {
     const advocatesInCompany = advocates.filter((advocate) => {
       return company.id === advocate.company;
     });
     return { ...company, advocates: advocatesInCompany };
   });
+  result.results = newcompanies;
+  return result;
 }
 
 async function getOneCompany(id) {

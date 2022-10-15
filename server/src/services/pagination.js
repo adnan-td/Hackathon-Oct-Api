@@ -1,4 +1,10 @@
-async function paginatedResultsFindAll(model, page, limit) {
+async function paginatedResultsFindAll(model, page, limit, query) {
+  let obj;
+  if (!query) {
+    obj = {};
+  } else {
+    obj = { name: new RegExp("^" + query + "$", "i") };
+  }
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
 
@@ -18,38 +24,14 @@ async function paginatedResultsFindAll(model, page, limit) {
     };
   }
   try {
-    results.results = await model.find({}).limit(limit).skip(startIndex).exec();
-    res.paginatedResults = results;
+    results.results = JSON.parse(
+      JSON.stringify(await model.find(obj).limit(limit).skip(startIndex).exec())
+    );
+    return results;
   } catch (e) {
-    res.status(500).json({ message: e.message });
+    console.log(e);
+    return null;
   }
 }
 
-async function paginatedResultsFindOne(model, page, limit, id) {
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
-
-  const results = {};
-
-  if (endIndex < (await model.countDocuments().exec())) {
-    results.next = {
-      page: page + 1,
-      limit: limit,
-    };
-  }
-
-  if (startIndex > 0) {
-    results.previous = {
-      page: page - 1,
-      limit: limit,
-    };
-  }
-  try {
-    results.results = await model.findOne({ id: id }).limit(limit).skip(startIndex).exec();
-    res.paginatedResults = results;
-  } catch (e) {
-    res.status(500).json({ message: e.message });
-  }
-}
-
-module.exports = { paginatedResultsFindAll, paginatedResultsFindOne };
+module.exports = { paginatedResultsFindAll };

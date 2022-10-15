@@ -1,7 +1,10 @@
 const { getAllAdvocates, addNewAdvocate, getOneAdvocate } = require("../../models/advocates.model");
 
 async function httpGetAllAdvocates(req, res) {
-  const result = await getAllAdvocates();
+  const query = req.query.query;
+  const page = +req.query.page;
+  const limit = +req.query.limit;
+  const result = await getAllAdvocates(query, page, limit);
   res.send(result);
 }
 
