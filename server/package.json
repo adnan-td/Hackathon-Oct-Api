@@ -1,7 +1,7 @@
 {
-  "name": "nasa-project-api",
+  "name": "oct-hack-api",
   "version": "1.0.0",
-  "description": "NASA Mission Control API",
+  "description": "API",
   "main": "src/server.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
@@ -21,12 +21,12 @@
     "express": "^4.17.3",
     "mongoose": "^6.6.5",
     "morgan": "^1.10.0",
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15",
     "pm2": "^5.2.0"
   },
   "devDependencies": {
-    "dotenv": "^16.0.0",
     "jest": "^26.6.3",
-    "nodemon": "^2.0.15",
     "supertest": "6.1.6"
   }
 }
