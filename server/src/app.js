@@ -14,9 +14,9 @@ app.use(morgan("combined"));
 
 app.use("/", api);
 
-// app.use(express.static(path.join(__dirname, "client")));
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "index.html"));
-// });
+app.use(express.static(path.join(__dirname, "../../client/out")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "../../client/out/index.html"));
+});
 
 module.exports = app;

@@ -2,26 +2,28 @@ const { getAllAdvocates, addNewAdvocate, getOneAdvocate } = require("../../model
 
 async function httpGetAllAdvocates(req, res) {
   const query = req.query.query;
-  const page = +req.query.page;
-  const limit = +req.query.limit;
+  const page = +req.query.page || 1;
+  const limit = +req.query.limit || 10;
   const result = await getAllAdvocates(query, page, limit);
-  res.send(result);
+  res.status(200).send(result);
 }
 
 async function httpAddNewAdvocate(req, res) {
   const advocate = req.body;
 
-  // if (!name && !email && !password) {
-  //   res.status(406).send("Please fill all the required fields");
-  // }
+  if (!advocate.name && !advocate.username) {
+    res.status(406).send("Please fill all the required fields");
+  }
   await addNewAdvocate(advocate);
   res.status(200);
 }
 
 async function httpGetOneAdvocate(req, res) {
-  const id = req.params.id;
-  const result = await getOneAdvocate(id);
-  res.send(result);
+  const username = req.params.username;
+  const result = await getOneAdvocate(username);
+  res.send({
+    advocate: result,
+  });
 }
 
 module.exports = {

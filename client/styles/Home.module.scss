@@ -1,0 +1,20 @@
+.search__header {
+  padding: 2rem 4rem;
+  background-color: #e6e7f7;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.search__codebox {
+  padding: 2rem 4rem 4rem;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__getbox {
+    padding: 1rem;
+    background-color: rgb(167 129 129 / 10%);
+    border-radius: 4px;
+    border: 1px solid #cdcdcd;
+  }
+}

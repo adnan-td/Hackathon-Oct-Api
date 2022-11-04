@@ -7,7 +7,7 @@ const {
 
 const advocatesRouter = express.Router();
 
-advocatesRouter.get("/:id", httpGetOneAdvocate);
+advocatesRouter.get("/:username", httpGetOneAdvocate);
 advocatesRouter.get("/", httpGetAllAdvocates);
 advocatesRouter.post("/", httpAddNewAdvocate);
 

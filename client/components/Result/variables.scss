@@ -1,0 +1,29 @@
+$main-theme: #7839ee;
+$main-theme-light: #7f56d9;
+$text-light-color: #d4d4d5;
+$nav-color: #22252d;
+$nav-response: 790px;
+$modal-gray: #d5dff2;
+$modal-hover-main: rgba(120, 57, 238, 0.45);
+$modal-hover-bg-main: rgba(120, 57, 228, 0.005);
+$error-600: #d92d20;
+$error-500: #f04438;
+$base-white: #ffffff;
+$warning-500: #f79009;
+$warning-600: #dc6803;
+$footer-bg: #1F2A37;
+$footer-bg-dark: #111927;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap");
+
+// &:hover {
+//   background: rgba(105, 65, 198, 0.15);
+//   border: 2px solid rgba(105, 65, 198, 0.15);
+// }
+// &:active {
+//   background: #6941c6;
+// }
+// &:focus {
+//   background: rgba(105, 65, 198, 0.3);
+//   border: 2px solid rgba(105, 65, 198, 0.3);
+// }

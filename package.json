@@ -1,5 +1,5 @@
 {
-  "name": "nasa-project",
+  "name": "codas-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,13 +8,15 @@
     "install-client": "npm install --prefix client",
     "install": "npm run install-server",
     "server": "npm run watch --prefix server",
-    "client": "npm start --prefix client",
+    "client": "npm run dev --prefix client",
     "watch": "npm run server & npm run client",
-    "deploy": "npm run build --prefix client && npm run server",
-    "deploy-cluster": "npm run build --prefix client && npm run cluster --prefix server",
+    "deploy": "npm run build --prefix client && npm run export --prefix client && npm run server",
     "test": "npm test --prefix server && npm test --prefix client"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "node-fetch": "^3.2.10"
+  }
 }
